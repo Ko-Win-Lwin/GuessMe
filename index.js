@@ -12,8 +12,7 @@ let highScore = document.querySelector("#highScore");
 
 // guess input
 const guessNumber = document.querySelector("#guess");
-guessNumber.value = "";
-let answer = document.querySelector("#answer");
+let secretNumber = document.querySelector("#secretNumber");
 randomNumber = generateNumber();
 
 // generate random number
@@ -23,40 +22,67 @@ function generateNumber() {
 
 // try again button
 let tryAgainBtn = document.querySelector("#tryAgain");
-document.querySelector("#tryAgain").addEventListener("click", () => {
+
+tryAgainBtn.addEventListener("click", () => {
   randomNumber = generateNumber();
-  answer.textContent = "?";
+  guessNumber.value = "";
+  secretNumber.textContent = "?";
   score.textContent = "9";
   guessNumber.style.display = "block";
-  guessNumber.value = "";
   checkBtn.style.display = "block";
-  board.style.backgroundColor = "white";
+
   result.textContent = "*Please choose a number";
+  board.style.backgroundColor = "#bcd0b5";
 });
 
 // check button
 let checkBtn = document.querySelector("#check");
-document.querySelector("#check").addEventListener("click", () => {
+checkBtn.addEventListener("click", () => {
+  result.style.color = "black";
+  // if not valid input
   if (!guessNumber.value) {
     result.textContent = "*Please choose a number";
     result.style.color = "red";
-  } else if (guessNumber.value == randomNumber) {
-    result.textContent = "Bravo.";
-    answer.textContent = randomNumber;
-    if (score.textContent > highScore.textContent) {
-      highScore.textContent = score.textContent;
-    }
-
-    board.style.backgroundColor = "seagreen";
-    checkBtn.style.display = "none";
-    guessNumber.style.display = "none";
-    tryAgainBtn.style.backgroundColor = "white";
-  } else if (guessNumber.value > randomNumber) {
-    result.textContent = "Very High";
+  }
+  // check for win
+  else if (guessNumber.value == randomNumber) {
+    win();
+  }
+  // check answer greater than or less than secret number
+  else if (
+    guessNumber.value > randomNumber
+      ? (result.textContent = "Very High")
+      : (result.textContent = "Very Low")
+  ) {
     score.textContent--;
-  } else if (guessNumber.value < randomNumber) {
-    result.textContent = "Very Low";
-    score.textContent--;
+    checkScore();
   }
   guessNumber.value = "";
 });
+
+// win
+function win() {
+  result.textContent = "Bravo.";
+  secretNumber.textContent = randomNumber;
+  if (score.textContent > highScore.textContent) {
+    highScore.textContent = score.textContent;
+  }
+
+  board.style.backgroundColor = "seagreen";
+  checkBtn.style.display = "none";
+  guessNumber.style.display = "none";
+  tryAgainBtn.style.backgroundColor = "white";
+  tryAgainBtn.style.color = "#075265";
+}
+
+//check score
+function checkScore() {
+  if (score.textContent == 0) {
+    result.textContent = "You lose.";
+    board.style.backgroundColor = "#E44950";
+    checkBtn.style.display = "none";
+    guessNumber.style.display = "none";
+    tryAgainBtn.style.backgroundColor = "white";
+    tryAgainBtn.style.color = "#075265";
+  }
+}

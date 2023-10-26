@@ -4,28 +4,31 @@ body {
   display: grid;
   place-items: center;
   overflow: hidden;
+  color: white;
 }
 
 button {
   background-color: transparent;
-  color: gray;
+  color: white;
   border: 1px solid transparent;
-  box-shadow: 1px 1px 4px gray;
+  box-shadow: 1px 1px 4px #075265;
   border-radius: 3px;
   padding: 3px 5px;
   cursor: pointer;
 }
 
 button:hover {
-  border: 1px solid black;
+  border: 1px solid #075265;
   color: black;
 }
 
 .game {
-  max-width: 40%;
-  margin-inline: auto;
+  max-width: 400px;
+  height: 500px;
   padding: 2% 5%;
-  border: 4px solid orange;
+  background-color: #bcd0b5;
+  border-radius: 5px;
+  box-shadow: 0px 1px 5px 0.5px gray;
 }
 
 header {
@@ -33,24 +36,49 @@ header {
   margin-bottom: 15%;
 }
 
+h1 {
+  font-size: 1.5rem;
+}
+
+.content {
+  display: grid;
+  place-items: center;
+}
+
 .guessNumber {
   text-align: center;
   margin-top: 15%;
 }
 
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
 input {
+  text-align: center;
+
   outline: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 1px solid gray;
 }
 
 form {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  place-items: center;
   margin-top: 15%;
+  width: 100%;
 }
 
 .guessSection {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  place-items: center;
   gap: 30px;
-  width: 20%;
+  width: 30%;
+  margin-bottom: 15%;
+}
+
+.guessResult {
+  text-align: center;
 }
